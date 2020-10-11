@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<center><h1>Paul's Online Shop</h1></center>
+<h2>Here is the list of items:</h2>
+
+{% for item in items %}
+    {{ item }} --> PRICE: {{ item.price }}$
+    <br>
+{% endfor %}
+{% endblock content %}
