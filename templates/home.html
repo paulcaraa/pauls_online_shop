@@ -27,13 +27,22 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Shirts</a>
+              <a class="nav-link" href="#">Clothing</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Sport wears</a>
+              <a class="nav-link" href="#">Accessories</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Outwears</a>
+              <a class="nav-link" href="#">Tech</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pets</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Auto</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home & Garden</a>
             </li>
 
           </ul>
@@ -61,8 +70,8 @@
             <div class="card">
 
               <div class="view overlay">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg" class="card-img-top"
-                  alt="">
+                {% comment %} <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg" class="card-img-top" {% endcomment %}
+                <img src="{{ item.image.url }}" class="card-img-top">
                 <a href="{{ item.get_absolute_url }}">
                   <div class="mask rgba-white-slight"></div>
                 </a>
