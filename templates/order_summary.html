@@ -1,19 +1,20 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
   <main>
     <div class="container">
 
     <div class="table-responsive text-nowrap">
-    <h2>Order Summary</h2>
+    <h2>{% trans "Order Summary" %}</h2>
     <table class="table">
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Item title</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Total Item Price</th>
+            <th scope="col">{% trans "Item title" %}</th>
+            <th scope="col">{% trans "Price" %}</th>
+            <th scope="col">{% trans "Quantity" %}</th>
+            <th scope="col">{% trans "Total Item Price" %}</th>
         </tr>
         </thead>
         <tbody>
@@ -41,11 +42,11 @@
         </tr>
         {% empty %}
         <tr>
-            <td colspan='5'>Your cart is empty</td>
+            <td colspan='5'>{% trans "Your cart is empty" %}</td>
         </tr>
         <tr>
             <td colspan="5">
-            <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+            <a class='btn btn-primary float-right' href='/'>{% trans "Continue shopping" %}</a>
             </td>
         </tr>
         {% endfor %}
@@ -57,13 +58,13 @@
         {% endif %}
         {% if object.get_total %}
         <tr>
-            <td colspan="4"><b>Order Total</b></td>
+            <td colspan="4"><b>{% trans "Order Total" %}</b></td>
             <td><b>${{ object.get_total }}</b></td>
         </tr>
         <tr>
             <td colspan="5">
-            <a class='btn btn-warning float-right ml-2' href='/checkout/'>Proceed to checkout</a>
-            <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+            <a class='btn btn-warning float-right ml-2' href='/checkout/'>{% trans "Proceed to checkout" %}</a>
+            <a class='btn btn-primary float-right' href='/'>{% trans "Continue shopping" %}</a>
             </td>
         </tr>
         {% endif %}

@@ -6,13 +6,26 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.shortcuts import render, get_object_or_404
-from django.utils import timezone
+from django.utils import timezone, translation
 from django.views.generic import ListView, DetailView, View
+from requests import request
 
 from .forms import CheckoutForm, CouponForm, RefundForm, PaymentForm
 from .models import Item, OrderItem, Order, Address, Coupon, Refund, UserProfile
+
+
+def selectlanguage(request):
+    if request.method == 'POST':  # check post
+        cur_language = translation.get_language()
+        lasturl = request.META.get('HTTP_REFERER')
+        lang = request.POST['language']
+        translation.activate(lang)
+        request.session[translation.LANGUAGE_SESSION_KEY] = lang
+        # return HttpResponse(lang)
+        return HttpResponseRedirect("/" + lang)
 
 
 def create_ref_code():
@@ -147,6 +160,15 @@ class HomeView(ListView):
     template_name = "home.html"
 
 
+class MyAccountView(ListView):
+    template_name = "my_account.html"
+
+    def get(self, *args, **kwargs):
+        model = UserProfile
+        user = self.request.user.username
+        return render(self.request, 'my_account.html')
+
+
 class OrderSummaryView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         try:
@@ -158,6 +180,19 @@ class OrderSummaryView(LoginRequiredMixin, View):
         except ObjectDoesNotExist:
             messages.warning(self.request, "You do not have an active order")
             return redirect("/")
+
+
+class MyOrdersView(LoginRequiredMixin, View):
+    def get(self, *args, **kwargs):
+        try:
+            orders = Order.objects.all().filter(user=self.request.user)
+            context = {
+                'object': orders
+            }
+            return render(self.request, 'my_orders.html', context)
+        except ObjectDoesNotExist:
+            messages.warning(self.request, "You haven't placed any orders yet!")
+            return redirect("/my-account")
 
 
 class ItemDetailView(DetailView):

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 
 {% block content %}
 
@@ -12,50 +13,50 @@
             <form method="POST" class="card-body">
               {% csrf_token %}
 
-              <h3>Shipping address</h3>
+              <h3>{% trans "Shipping address" %}</h3>
 
               <div class='hideable_shipping_form'>
 
                 <div class="md-form mb-5">
                   <input type='text' placeholder='1234 Main St' id='shipping_address' name='shipping_address' class='form-control' />
-                  <label for="shipping_address" class="">Address</label>
+                  <label for="shipping_address" class="">{% trans "Address" %}</label>
                 </div>
 
                 <div class="md-form mb-5">
                   <input type='text' placeholder='Apartment, building' id='shipping_address2' name='shipping_address2' class='form-control' />
-                  <label for="shipping_address2" class="">Address 2 (optional)</label>
+                  <label for="shipping_address2" class="">{% trans "Address 2 (optional)" %}</label>
                 </div>
 
                 <div class="md-form mb-5">
                   <input type='text' placeholder='Timisoara' id='shipping_address' name='shipping_city' class='form-control' />
-                  <label for="shipping_city" class="">City</label>
+                  <label for="shipping_city" class="">{% trans "City" %}</label>
                 </div>
 
                 <div class="md-form mb-5">
                   <input type='text' placeholder='Timis' id='shipping_address' name='shipping_county' class='form-control' />
-                  <label for="shipping_county" class="">County</label>
+                  <label for="shipping_county" class="">{% trans "County" %}</label>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-4 col-md-12 mb-4">
-                    <label for="country">Country</label>
+                    <label for="country">{% trans "Country" %}</label>
                     {{ form.shipping_country }}
                     <div class="invalid-feedback">
-                      Please select a valid country.
+                      {% trans "Please select a valid country." %}
                     </div>
                   </div>
                   <div class="col-lg-4 col-md-6 mb-4">
                     <label for="shipping_zip">Zip</label>
                     <input type='text' placeholder='Zip code' id='shipping_zip' name='shipping_zip' class='form-control' />
                     <div class="invalid-feedback">
-                      Zip code required.
+                      {% trans "Zip code required." %}
                     </div>
                   </div>
                 </div>
 
                 <div class="custom-control custom-checkbox">
                   <input type="checkbox" class="custom-control-input" name="set_default_shipping" id="set_default_shipping">
-                  <label class="custom-control-label" for="set_default_shipping">Save as default shipping address</label>
+                  <label class="custom-control-label" for="set_default_shipping">{% trans "Save as default shipping address" %}</label>
                 </div>
 
               </div>
@@ -70,7 +71,7 @@
               <hr>
 
 
-              <h3>Payment option</h3>
+              <h3>{% trans "Payment option" %}</h3>
 
               <div class="d-block my-3">
                 {% for value, name in form.fields.payment_option.choices %}
@@ -82,7 +83,7 @@
               </div>
 
               <hr class="mb-4">
-              <button class="btn btn-primary btn-lg btn-block" type="submit">Place the order</button>
+              <button class="btn btn-primary btn-lg btn-block" type="submit">{% trans "Place the order" %}</button>
 
             </form>
 

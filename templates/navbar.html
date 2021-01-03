@@ -1,11 +1,12 @@
 {% load cart_template_tags %}
+{% load i18n %}
 
 <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
     <div class="container">
 
       <!-- Brand -->
       <a class="navbar-brand waves-effect" href="/">
-        <strong class="blue-text">Paul's Shop</strong>
+        <strong class="blue-text">{% trans "Paul's Shop" %}</strong>
       </a>
 
       <!-- Collapse -->
@@ -20,7 +21,7 @@
         <!-- Left -->
         <ul class="navbar-nav mr-auto">
           {% comment %} <li class="nav-item active">
-            <a class="nav-link waves-effect" href="/">Home
+            <a class="nav-link waves-effect" href="/">{% trans "Home" %}
               <span class="sr-only">(current)</span>
             </a>
           </li>
@@ -34,29 +35,52 @@
         <ul class="navbar-nav nav-flex-icons">
           {% if request.user.is_authenticated %}
           <li class="nav-item">
-            <a href="{% url 'core:order-summary' %}" class="nav-link waves-effect">
+            <a href="{% url 'order-summary' %}" class="nav-link waves-effect">
               <span class="badge red z-depth-1 mr-1"> {{ request.user|cart_item_count }} </span>
               <i class="fas fa-shopping-cart"></i>
-              <span class="clearfix d-none d-sm-inline-block"> Cart </span>
+              <span class="clearfix d-none d-sm-inline-block"> {% trans "Cart" %} </span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link waves-effect" href="{% url 'account_logout' %}">
-              <span class="clearfix d-none d-sm-inline-block"> Logout </span>
+              <span class="clearfix d-none d-sm-inline-block"> {% trans "Logout" %} </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="/my-account">
+              <span class="clearfix d-none d-sm-inline-block"> {% trans "My Account" %} </span>
             </a>
           </li>
           {% else %}
           <li class="nav-item">
             <a class="nav-link waves-effect" href="{% url 'account_login' %}">
-              <span class="clearfix d-none d-sm-inline-block"> Login </span>
+              <span class="clearfix d-none d-sm-inline-block"> {% trans "Login" %} </span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link waves-effect" href="{% url 'account_signup' %}">
-              <span class="clearfix d-none d-sm-inline-block"> Signup </span>
+              <span class="clearfix d-none d-sm-inline-block"> {% trans "Signup" %} </span>
             </a>
           </li>
           {% endif %}
+          <li class="nav-item" style="margin-left: 10px; top: 50%; transform: translateY(+18%);">
+            <form action="{% url 'select_language' %}" method="post">{% csrf_token %}
+              <input name="next" type="hidden" value="{{ redirect_to }}">
+              <select name="language" onchange="submit()" >
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for language in languages %}
+                  <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                    {{ language.name_local }} ({{ language.code }})
+                  </option>
+                {% endfor %}
+              </select>
+              <noscript>
+                <input type="submit" value="Set" />
+              </noscript>
+            </form>
+          </li>
         </ul>
       </div>
 

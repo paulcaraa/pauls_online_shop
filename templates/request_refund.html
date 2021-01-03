@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 
 {% block content %}
   <main>
     <div class="container">
 
-    <h2>Request Refund</h2>
+    <h2>{% trans "Request Refund" %}</h2>
     <form method="POST">
         {% csrf_token %}
         {{ form|crispy }}

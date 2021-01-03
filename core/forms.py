@@ -39,7 +39,7 @@ class CouponForm(forms.Form):
 
 
 class RefundForm(forms.Form):
-    ref_code = forms.CharField()
+    ref_code = forms.CharField(required=True, disabled=False)
     message = forms.CharField(widget=forms.Textarea(attrs={
         'rows': 4
     }))

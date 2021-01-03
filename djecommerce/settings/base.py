@@ -1,5 +1,7 @@
 import os
 from decouple import config
+from django.utils.translation import gettext_lazy as _
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))))
@@ -32,6 +34,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'djecommerce.urls'
@@ -80,3 +83,18 @@ LOGIN_REDIRECT_URL = '/'
 # CRISPY FORMS
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+#LANG
+
+LANGUAGES = [
+    ('en', _('English')),
+    ('ro', _('Romanian')),
+]
+
+LANGUAGE_CODE = 'en-us'
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
+USE_I18N = True
