@@ -11,7 +11,8 @@ make_refund_accepted.short_description = 'Update orders to refund granted'
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['user',
+    list_display = ['ref_code',
+                    'user',
                     'ordered',
                     'being_delivered',
                     'received',
@@ -21,9 +22,7 @@ class OrderAdmin(admin.ModelAdmin):
                     'coupon'
                     ]
     list_display_links = [
-        'user',
-        'shipping_address',
-        'coupon'
+        'ref_code'
     ]
     list_filter = ['ordered',
                    'being_delivered',
@@ -39,9 +38,9 @@ class OrderAdmin(admin.ModelAdmin):
 
 class AddressAdmin(admin.ModelAdmin):
     list_display = [
-        'user',
         'street_address',
         'apartment_address',
+        'user',
         'country',
         'city',
         'county',

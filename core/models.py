@@ -108,7 +108,7 @@ class Order(models.Model):
     refund_granted = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username
+        return self.ref_code
 
     def get_total(self):
         total = 0
@@ -126,9 +126,9 @@ class Order(models.Model):
 
 
 class Address(models.Model):
+    street_address = models.CharField(max_length=100)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
-    street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
     city = models.CharField(max_length=30)
     county = models.CharField(max_length=30)
@@ -138,7 +138,8 @@ class Address(models.Model):
     default = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username
+        full_address = [str(self.street_address), str(self.city), str(self.county), str(self.country)]
+        return "; ".join(full_address)
 
     class Meta:
         verbose_name_plural = 'Addresses'
