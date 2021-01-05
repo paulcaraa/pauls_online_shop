@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+  <main>
+    <div class="container">
+    <div class="table-responsive text-nowrap">
+        <h2><center>{% trans "My account profile" %}</center></h2>
+        <br><br>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"><center><b>{% trans "Username:" %}</b><br> {{ user.get_username }}</center></th>
+        </tr>
+
+        <tr>
+            <th scope="row"><center><b>{% trans "E-mail:" %}</b><br> {{ request.user.email }}</center></th>
+        </tr>
+
+        <tr>
+            <th scope="row"><center><b>{% trans "Full Name:" %}</b><br> {{ request.user.first_name }} {{ request.user.last_name }}</center></th>
+        </tr>
+
+        <tr>
+            <th scope="row">
+                <center>
+                    <a class='btn btn-primary float-none' href='/my-orders'>{% trans "My Orders" %}</a>
+                </center>
+            </th>
+
+        </tr>
+        </thead>
+    </table>
+
+    </div>
+
+
+    </div>
+  </main>
+
+{% endblock content %}
+
+
